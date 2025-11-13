@@ -119,9 +119,6 @@ def evaluate(program_path: str) -> EvaluationResult:
                 "error": "Missing `rebalance_experts` function",
             }
 
-        if not hasattr(program, "rebalance_experts"):
-            raise ValueError("Program does not have rebalance_experts function")
-
         balancedness_scores = []
         times = []
         for i in range(len(workloads) - 1):
