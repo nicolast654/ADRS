@@ -24,7 +24,7 @@ if not os.path.exists(WORKLOAD_PATH):
     )
 
 @functools.cache
-def load_workloads(path: str) -> list[torch.Tensor]: 
+def load_workloads(path: str) -> list[torch.Tensor]:
     with open(path, "r") as f:
         data = json.load(f)
 
@@ -51,21 +51,21 @@ def simulate_inference(log2phy: torch.Tensor, logcnt: torch.Tensor, workload: to
     '''
     # workload 形状: (num_layers, num_logical_experts) - 每层每个逻辑专家的负载
     num_layers, num_logical_experts = workload.shape
-    
+
     # 初始化物理专家负载累积器
     num_physical_experts = NUM_REPLICAS
     total_physical_load = torch.zeros(num_layers, num_physical_experts, dtype=torch.float, device=workload.device)
-    
+
     # 对每个逻辑专家，分配负载到其物理副本
     for layer_id in range(num_layers):
         for logical_id in range(num_logical_experts):
             # 获取该逻辑专家的负载
             logical_load = workload[layer_id][logical_id].item()
-            
+
             # 跳过零负载
             if logical_load <= 0:
                 continue
-                
+
             num_replicas = int(logcnt[layer_id][logical_id].item())
 
             # 跳过零副本
@@ -74,30 +74,30 @@ def simulate_inference(log2phy: torch.Tensor, logcnt: torch.Tensor, workload: to
 
             # 获取物理专家映射
             physical_ids = log2phy[layer_id][logical_id][:num_replicas]
-                
+
             # 计算每个副本的负载（基于有效副本数量）
             replica_load = logical_load / num_replicas
-            
+
             # 分配负载到有效的物理专家
             total_physical_load[layer_id, physical_ids] += replica_load
-    
+
     # 计算 balancedness
     total_load = total_physical_load.sum()
     if total_load == 0:
         return 0.0
-    
+
     # 计算每层的平均负载和最大负载，然后求和
     layer_avg = total_physical_load.mean(dim=1)  # (num_layers,)
     layer_max = total_physical_load.max(dim=1).values  # (num_layers,)
-    
+
     avg_load = layer_avg.sum().item()
     max_load = layer_max.sum().item()
-    
+
     # 计算 balancedness: avg_load / max_load
     balancedness = avg_load / max_load if max_load > 0 else 0.0
-    
+
     print(f'balancedness: {balancedness}')
-    
+
     return balancedness
 
 def evaluate(program_path: str) -> EvaluationResult:
@@ -119,9 +119,6 @@ def evaluate(program_path: str) -> EvaluationResult:
                 "error": "Missing `rebalance_experts` function",
             }
 
-        if not hasattr(program, "rebalance_experts"):
-            raise ValueError("Program does not have rebalance_experts function")
-        
         balancedness_scores = []
         times = []
         for i in range(len(workloads) - 1):
@@ -156,11 +153,3 @@ def evaluate(program_path: str) -> EvaluationResult:
             "combined_score": 0.0,
             "error": str(e),
         }
-    
-    return {
-        "balancedness_score": 0.0,
-        "speed_score": 0.0,
-        "combined_score": 0.0,
-        "error": "No error",
-    }
-    
