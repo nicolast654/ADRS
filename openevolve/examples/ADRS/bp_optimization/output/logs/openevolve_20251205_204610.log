@@ -1,0 +1,48 @@
+2025-12-05 20:46:10,306 - openevolve.controller - INFO - Logging to openevolve/examples/ADRS/bp_optimization/output/logs/openevolve_20251205_204610.log
+2025-12-05 20:46:10,307 - openevolve.controller - INFO - Set random seed to 42 for reproducibility
+2025-12-05 20:46:10,354 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gpt-4.1-mini
+2025-12-05 20:46:10,391 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gpt-4o
+2025-12-05 20:46:10,391 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:46:10,464 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:46:10,464 - openevolve.prompt.sampler - INFO - Initialized prompt sampler
+2025-12-05 20:46:10,464 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2025-12-05 20:46:10,465 - openevolve.database - INFO - Reconstructed islands: restored 0 programs to islands
+2025-12-05 20:46:10,465 - openevolve.database - INFO - No island assignments found, distributing programs across islands
+2025-12-05 20:46:10,465 - openevolve.database - INFO - Distributed 4 programs across 2 islands
+2025-12-05 20:46:10,465 - openevolve.database - INFO - Loaded database with 4 programs from ./openevolve_output/bp_optimization
+2025-12-05 20:46:10,465 - openevolve.database - INFO - Island Status:
+2025-12-05 20:46:10,465 - openevolve.database - INFO -  * Island 0: 2 programs, best=666666666.6667, avg=666666666.6667, diversity=83.90, gen=0
+2025-12-05 20:46:10,465 - openevolve.database - INFO -    Island 1: 2 programs, best=3.3587, avg=-499999998.3207, diversity=267.80, gen=0
+2025-12-05 20:46:10,465 - openevolve.database - INFO - Initialized program database with 4 programs
+2025-12-05 20:46:10,465 - openevolve.evaluator - INFO - Successfully loaded evaluation function from openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:46:10,465 - openevolve.evaluator - WARNING - Configuration has 'cascade_evaluation: true' but evaluator 'openevolve/examples/ADRS/bp_optimization/evaluator.py' does not define 'evaluate_stage1' function. This will fall back to direct evaluation, making the cascade setting useless. Consider setting 'cascade_evaluation: false' or implementing cascade functions.
+2025-12-05 20:46:10,465 - openevolve.evaluator - INFO - Initialized evaluator with openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:46:10,465 - openevolve.controller - INFO - Initialized OpenEvolve with openevolve/examples/ADRS/bp_optimization/initial_program.cc
+2025-12-05 20:46:10,465 - openevolve.controller - INFO - Skipping initial program addition (resuming from iteration 0 with 4 existing programs)
+2025-12-05 20:46:10,466 - openevolve.process_parallel - INFO - Initialized process parallel controller with 1 workers
+2025-12-05 20:46:10,466 - openevolve.process_parallel - INFO - Started process pool with 1 processes
+2025-12-05 20:46:10,466 - openevolve.controller - INFO - Using island-based evolution with 2 islands
+2025-12-05 20:46:10,466 - openevolve.database - INFO - Island Status:
+2025-12-05 20:46:10,466 - openevolve.database - INFO -  * Island 0: 2 programs, best=666666666.6667, avg=666666666.6667, diversity=83.90, gen=0
+2025-12-05 20:46:10,466 - openevolve.database - INFO -    Island 1: 2 programs, best=3.3587, avg=-499999998.3207, diversity=267.80, gen=0
+2025-12-05 20:46:10,466 - openevolve.process_parallel - INFO - Starting process-based evolution from iteration 0 for 1 iterations (total: 1)
+2025-12-05 20:46:10,546 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:46:10,617 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:46:10,617 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2025-12-05 20:46:10,617 - openevolve.evaluator - INFO - Successfully loaded evaluation function from openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:46:10,617 - openevolve.evaluator - WARNING - Configuration has 'cascade_evaluation: true' but evaluator 'openevolve/examples/ADRS/bp_optimization/evaluator.py' does not define 'evaluate_stage1' function. This will fall back to direct evaluation, making the cascade setting useless. Consider setting 'cascade_evaluation: false' or implementing cascade functions.
+2025-12-05 20:46:10,617 - openevolve.evaluator - INFO - Initialized evaluator with openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:46:10,618 - openevolve.llm.ensemble - INFO - Sampled model: gpt-4o
+2025-12-05 20:46:17,376 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 20:47:24,747 - openevolve.evaluator - INFO - Evaluated program 901eecd8-a73d-431d-9c5a-bb3339663350 in 67.36s: mpki=1000000000.0000, objective=1000000000.0000, success=0.0000, error=Command '['make', '-C', '/home/nicolas/ChampSim']' returned non-zero exit status 2., combined_score=-1000000000.0000
+2025-12-05 20:47:24,752 - openevolve.database - INFO - New MAP-Elites cell occupied: {'objective': 5, 'complexity': 5}
+2025-12-05 20:47:24,753 - openevolve.process_parallel - INFO - Iteration 0: Program 901eecd8-a73d-431d-9c5a-bb3339663350 (parent: e1de7bc6-1add-401b-97d2-8831b472c84a) completed in 74.13s
+2025-12-05 20:47:24,754 - openevolve.process_parallel - INFO - Metrics: mpki=1000000000.0000, objective=1000000000.0000, success=0.0000, error=Command '['make', '-C', '/home/nicolas/ChampSim']' returned non-zero exit status 2., combined_score=-1000000000.0000
+2025-12-05 20:47:24,754 - openevolve.process_parallel - INFO - 🌟 New best solution found at iteration 0: 901eecd8-a73d-431d-9c5a-bb3339663350
+2025-12-05 20:47:24,754 - openevolve.process_parallel - INFO - Evolution completed
+2025-12-05 20:47:24,759 - openevolve.process_parallel - INFO - Stopped process pool
+2025-12-05 20:47:24,759 - openevolve.controller - INFO - Using tracked best program: 901eecd8-a73d-431d-9c5a-bb3339663350
+2025-12-05 20:47:24,759 - openevolve.database - INFO - Updated best program tracking from 901eecd8-a73d-431d-9c5a-bb3339663350 to 25901bcb-b425-43fc-b989-fa63bbc4b4db
+2025-12-05 20:47:24,759 - openevolve.database - INFO - Score change: -1000000000.0000 → -1000000000.0000 (+0.0000)
+2025-12-05 20:47:24,759 - openevolve.controller - INFO - Evolution complete. Best program has metrics: mpki=1000000000.0000, objective=1000000000.0000, success=0.0000, error=Command '['make', '-C', '/home/nicolas/ChampSim']' returned non-zero exit status 2., combined_score=-1000000000.0000
+2025-12-05 20:47:24,759 - openevolve.controller - INFO - Saved best program to openevolve/examples/ADRS/bp_optimization/output/best/best_program.cc with program info to openevolve/examples/ADRS/bp_optimization/output/best/best_program_info.json

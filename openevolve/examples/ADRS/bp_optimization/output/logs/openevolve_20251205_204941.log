@@ -1,0 +1,37 @@
+2025-12-05 20:49:41,939 - openevolve.controller - INFO - Logging to openevolve/examples/ADRS/bp_optimization/output/logs/openevolve_20251205_204941.log
+2025-12-05 20:49:41,939 - openevolve.controller - INFO - Set random seed to 42 for reproducibility
+2025-12-05 20:49:41,986 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gpt-4.1-mini
+2025-12-05 20:49:42,021 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gpt-4o
+2025-12-05 20:49:42,022 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:49:42,092 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:49:42,092 - openevolve.prompt.sampler - INFO - Initialized prompt sampler
+2025-12-05 20:49:42,092 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2025-12-05 20:49:42,093 - openevolve.database - INFO - Initialized program database with 0 programs
+2025-12-05 20:49:42,093 - openevolve.evaluator - INFO - Successfully loaded evaluation function from openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:49:42,093 - openevolve.evaluator - WARNING - Configuration has 'cascade_evaluation: true' but evaluator 'openevolve/examples/ADRS/bp_optimization/evaluator.py' does not define 'evaluate_stage1' function. This will fall back to direct evaluation, making the cascade setting useless. Consider setting 'cascade_evaluation: false' or implementing cascade functions.
+2025-12-05 20:49:42,093 - openevolve.evaluator - INFO - Initialized evaluator with openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:49:42,093 - openevolve.controller - INFO - Initialized OpenEvolve with openevolve/examples/ADRS/bp_optimization/initial_program.cc
+2025-12-05 20:49:42,093 - openevolve.controller - INFO - Adding initial program to database
+2025-12-05 20:51:09,226 - openevolve.evaluator - INFO - Evaluated program 282f91c6-e13c-4393-b9b6-efe8607206a3 in 87.13s: mpki=4.5380, objective=4.5380, success=1.0000, combined_score=-4.5380
+2025-12-05 20:51:09,227 - openevolve.database - INFO - New MAP-Elites cell occupied: {'objective': 5, 'complexity': 5}
+2025-12-05 20:51:09,228 - openevolve.process_parallel - INFO - Initialized process parallel controller with 1 workers
+2025-12-05 20:51:09,229 - openevolve.process_parallel - INFO - Started process pool with 1 processes
+2025-12-05 20:51:09,229 - openevolve.controller - INFO - Using island-based evolution with 2 islands
+2025-12-05 20:51:09,229 - openevolve.database - INFO - Island Status:
+2025-12-05 20:51:09,229 - openevolve.database - INFO -  * Island 0: 1 programs, best=-4.5380, avg=-4.5380, diversity=0.00, gen=0 (best: 282f91c6-e13c-4393-b9b6-efe8607206a3)
+2025-12-05 20:51:09,229 - openevolve.database - INFO -    Island 1: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2025-12-05 20:51:09,229 - openevolve.process_parallel - INFO - Starting process-based evolution from iteration 1 for 1 iterations (total: 2)
+2025-12-05 20:51:09,306 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:51:09,376 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gpt-4.1-mini (weight: 0.83), gpt-4o (weight: 0.17)
+2025-12-05 20:51:09,377 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2025-12-05 20:51:09,377 - openevolve.evaluator - INFO - Successfully loaded evaluation function from openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:51:09,377 - openevolve.evaluator - WARNING - Configuration has 'cascade_evaluation: true' but evaluator 'openevolve/examples/ADRS/bp_optimization/evaluator.py' does not define 'evaluate_stage1' function. This will fall back to direct evaluation, making the cascade setting useless. Consider setting 'cascade_evaluation: false' or implementing cascade functions.
+2025-12-05 20:51:09,377 - openevolve.evaluator - INFO - Initialized evaluator with openevolve/examples/ADRS/bp_optimization/evaluator.py
+2025-12-05 20:51:09,378 - openevolve.llm.ensemble - INFO - Sampled model: gpt-4o
+2025-12-05 20:51:21,297 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 20:51:21,308 - openevolve.process_parallel - WARNING - Iteration 1 error: No valid diffs found in response
+2025-12-05 20:51:21,308 - openevolve.process_parallel - INFO - Evolution completed
+2025-12-05 20:51:21,313 - openevolve.process_parallel - INFO - Stopped process pool
+2025-12-05 20:51:21,313 - openevolve.controller - INFO - Using tracked best program: 282f91c6-e13c-4393-b9b6-efe8607206a3
+2025-12-05 20:51:21,313 - openevolve.controller - INFO - Evolution complete. Best program has metrics: mpki=4.5380, objective=4.5380, success=1.0000, combined_score=-4.5380
+2025-12-05 20:51:21,314 - openevolve.controller - INFO - Saved best program to openevolve/examples/ADRS/bp_optimization/output/best/best_program.cc with program info to openevolve/examples/ADRS/bp_optimization/output/best/best_program_info.json

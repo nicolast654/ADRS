@@ -1,0 +1,93 @@
+max_iterations: 20
+checkpoint_interval: 2
+log_level: "INFO"
+
+max_code_length: 3000
+
+llm:
+  primary_model: "gpt-4.1-mini"
+  primary_model_weight: 1.0
+  secondary_model: null
+  secondary_model_weight: 0.0
+  api_base: "https://api.openai.com/v1"
+  api_key: ${OPENAI_API_KEY}
+  temperature: 0.4
+  top_p: 0.9
+  max_tokens: 8192
+  timeout: 600
+
+# Prompt configuration
+prompt:
+  system_message: |
+    You are an expert in CPU microarchitecture and branch prediction.
+
+    You are given the C++ implementation of the ChampSim branch predictor class
+    `bimodal` (files: branch/bimodal/bimodal.cc and bimodal.h). Your task is to
+    modify the predictor implementation to reduce branch mispredictions (MPKI)
+    on a fixed ChampSim trace, while keeping the code safe, efficient, and
+    compilable.
+
+    Very important constraints:
+    - Do NOT change the class name `bimodal` or its public interface.
+    - Do NOT change the base class or public methods expected by ChampSim
+      (e.g., predict_branch, last_branch_result).
+    - Do NOT add I/O (no printf, cout, file access, logging, or networking).
+    - Do NOT allocate memory per branch in the hot path (no new/delete per
+      prediction or update). All predictor state should be allocated once and
+      reused.
+    - Keep predictor state size reasonable (on the order of kilobytes, not
+      megabytes).
+    - Code must compile as C++17 within the existing ChampSim environment.
+
+    Goals:
+    - Primary objective: minimize MPKI reported by ChampSim on the fixed trace.
+    - Secondary objectives: keep runtime overhead low and code relatively simple
+      and robust.
+
+    Hints:
+    - You may incorporate ideas from classic predictors (e.g., bimodal,
+      gshare, perceptron, TAGE-style history tables) as long as they fit the
+      constraints above.
+    - Be careful with indexing, table sizes, and initialization.
+    - Avoid undefined behavior and suspicious pointer arithmetic.
+
+    The evaluator will:
+    - Take your candidate bimodal.cc,
+    - Build ChampSim,
+    - Run a short simulation on a fixed trace,
+    - Parse the "Branch Prediction Accuracy ... MPKI: X" line,
+    - Use MPKI as the objective to minimize.
+
+    If your code fails to compile or crashes at runtime, the evaluator will
+    assign a very bad score. Always prefer a correct, slightly better predictor
+    over an aggressive but fragile design.
+
+  num_top_programs: 3
+  num_diverse_programs: 2
+  use_template_stochasticity: true
+
+# Database / evolution configuration
+database:
+  db_path: "./openevolve_output/bp_optimization"
+  population_size: 12
+  archive_size: 6
+  num_islands: 2
+  elite_selection_ratio: 0.4
+  exploitation_ratio: 0.6
+  exploration_ratio: 0.4
+  migration_interval: 10
+  migration_rate: 0.1
+  feature_dimensions:
+    - "objective"
+    - "complexity"
+  feature_bins: 10
+
+evaluator:
+  timeout: 900
+  parallel_evaluations: 1
+  use_llm_feedback: false
+
+# Evolution settings
+diff_based_evolution: true
+allow_full_rewrites: false
+

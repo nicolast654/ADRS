@@ -15,7 +15,7 @@ def run_champsim() -> str:
     """
     Runs champsim and returns the output.
     """
-    subprocess.run(["make", "clean", "-C", str(CHAMPSIM_ROOT)], check=True) # -C flag is for directory, check=True checks for error (return code != 0)
+    subprocess.run(["make", "clean", "-C", str(CHAMPSIM_ROOT)], check=True) # -C flag is for directory (what dir to run the command in), check=True checks for error (return code != 0)
     subprocess.run(["make", "-C", str(CHAMPSIM_ROOT)], check=True) # -C flag is for directory, check=True checks for error (return code != 0)
 
     result = subprocess.run(
@@ -67,6 +67,7 @@ def evaluate(program_path: str) -> dict:
             "mpki": float(mpki),
             "objective": float(mpki),
             "success": 1.0,
+            "combined_score": -1 * float(mpki),
         }
     except Exception as e:
         return {
@@ -74,6 +75,7 @@ def evaluate(program_path: str) -> dict:
             "objective": 1e9,
             "success": 0.0,
             "error": str(e),
+            "combined_score": -1e9,
         }
 
 
